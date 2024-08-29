@@ -93,9 +93,6 @@ void loop() {
       openVisor();
     }
   } else {
-    if(visorBS == LOW){
-      exceptionHandler(2);
-    }
     if(visorSpamm > 0){
       visorSpamm--;
     }
@@ -111,9 +108,6 @@ void loop() {
       turnEyesOn();
     } 
   } else {
-    if(eyeBS == LOW){
-      exceptionHandler(3);
-    }
     if(eyeSpamm > 0){
       eyeSpamm--;
     }
@@ -190,20 +184,6 @@ void exceptionHandler(int errorCode){
     delay(150);
     digitalWrite(statusLed, HIGH);
     delay(100);
-    digitalWrite(statusLed, LOW);
-    break;
-  case 2:
-    Serial.println("Visor Spamm Protection is on!");
-    // 1 short blink
-    digitalWrite(statusLed, HIGH);
-    delay(100);
-    digitalWrite(statusLed, LOW);
-    break;
-  case 3:
-    Serial.println("Eye Spamm Protection is on!");
-    // 1 long blink
-    digitalWrite(statusLed, HIGH);
-    delay(300);
     digitalWrite(statusLed, LOW);
     break;
   default:
