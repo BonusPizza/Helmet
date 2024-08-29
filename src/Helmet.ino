@@ -98,6 +98,9 @@ void loop() {
 
 // open the visor and shut off eye lights
 void openVisor() {
+  leftServo.attach(leftServoPin, 500, 2400);
+  rightServo.attach(rightServoPin, 500, 2400);
+
   leftServo.write(leftServoOpen);
   rightServo.write(rightServoOpen);
   
@@ -118,6 +121,9 @@ void closeVisor() {
 
   analogWrite(leftEye, 255);
   analogWrite(rightEye, 255);
+
+  leftServo.detach();
+  rightServo.detach();
 
   helmetOpen = false;
   print();
