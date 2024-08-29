@@ -8,6 +8,7 @@
 
 #define visorButton 5
 #define eyeButton 15
+
 #define leftEye 25
 #define rightEye 26
 #define statusLed 27
@@ -20,18 +21,20 @@ Servo rightServo; // closed at 0
 
 int leftServoOpen = 60;
 int rightServoOpen = 180;
-
 int leftServoClose = 180;
 int rightServoClose = 0; 
 
 int visorSpamm = 0;
 int eyeSpamm = 0;
 
-int brightness = 255; // LOW == 0, MAX == 255, HIGH == ?
-
 bool visorOpen = true;
 bool eyesOn = false;
 
+int brightness = 255; // LOW == 0, MAX == 255, HIGH == ?
+
+const long interval = 100;
+unsigned long prevMillis = 0;
+int blinksLeft = 0; // add 1 Blink == blinksleft += 2;
 
 // Initialize Helmet
 void setup() {
@@ -85,13 +88,15 @@ void loop() {
   // Check if button is pressed and spamm protection is off
   // otherwise reduce spamm protection (if on)
   if(visorSpamm == 0 && visorBS == LOW){
-    visorSpamm = 10;
     // open or close the visor based on its current state
     if(visorOpen){
       closeVisor();
     } else if(!visorOpen){
       openVisor();
     }
+
+    visorSpamm = 10;
+
   } else {
     if(visorSpamm > 0){
       visorSpamm--;
@@ -100,16 +105,27 @@ void loop() {
 
   // same thing but for the eyes
   if(eyeSpamm == 0 && eyeBS == LOW){
-    eyeSpamm = 5;
     // Toggle LED Eyes based on their current state
     if(eyesOn){
       shutEyesOff();
     } else if(!eyesOn){
       turnEyesOn();
     } 
+
+    eyeSpamm = 5;
+
   } else {
     if(eyeSpamm > 0){
       eyeSpamm--;
+    }
+  }
+
+  if(blinksLeft > 0){
+    unsigned long currMillis = millis();
+    if(currMillis - prevMillis >= interval){
+      prevMillis = currMillis;
+      digitalWrite(statusLed, !digitalRead(statusLed));
+      blinksLeft--;
     }
   }
 
@@ -135,9 +151,8 @@ void closeVisor() {
 
   visorOpen = false;
 
-  delay(250); // turn on the light once the visor is closed 
-  //TODO: FIND perfekt timing
-
+  delay(250); // turn on the light once the visor is closed TODO: FIND perfekt timing
+  
   turnEyesOn();
   print();
 }
@@ -171,13 +186,7 @@ void exceptionHandler(int errorCode){
   case 1:
     Serial.println("The visor is open!");
     // 2 short blinks on statusLed
-    digitalWrite(statusLed, HIGH);
-    delay(100);
-    digitalWrite(statusLed, LOW);
-    delay(150);
-    digitalWrite(statusLed, HIGH);
-    delay(100);
-    digitalWrite(statusLed, LOW);
+    blinksLeft = 4;
     break;
   default:
     break;
