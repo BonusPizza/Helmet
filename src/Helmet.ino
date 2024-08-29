@@ -6,9 +6,9 @@
 #include <SPI.h>
 
 
-#define buttonPin 25
-#define leftEye 17
-#define rightEye 16
+#define buttonPin 5
+#define leftEye 26
+#define rightEye 25
 
 #define leftServoPin 19 // left from the front
 #define rightServoPin  18 // right from the front
@@ -43,8 +43,8 @@ void setup() {
   pinMode(rightEye, OUTPUT);
 
   // Helmet boots open so eyelights are off
-  digitalWrite(leftEye, LOW);
-  digitalWrite(rightEye, LOW);
+  analogWrite(leftEye, LOW); // LOW == 0, MAX == 255, HIGH == ?
+  analogWrite(rightEye, LOW);
 
   // Allow allocation of all timers
 	ESP32PWM::allocateTimer(0);
@@ -63,7 +63,6 @@ void setup() {
   rightServo.write(rightServoOpen);
 
   delay(200);
-
 }
 
 // Run Helmet
@@ -102,8 +101,8 @@ void openVisor() {
   leftServo.write(leftServoOpen);
   rightServo.write(rightServoOpen);
   
-  digitalWrite(leftEye, LOW);
-  digitalWrite(rightEye, LOW);
+  analogWrite(leftEye, LOW);
+  analogWrite(rightEye, LOW);
   
   helmetOpen = true;
   print();
@@ -117,10 +116,9 @@ void closeVisor() {
   delay(250); // turn on the light once the visor is closed 
   //TODO: FIND perfekt timing
 
-  digitalWrite(leftEye, HIGH);
-  digitalWrite(rightEye, HIGH);
+  analogWrite(leftEye, 255);
+  analogWrite(rightEye, 255);
 
-  
   helmetOpen = false;
   print();
 }
