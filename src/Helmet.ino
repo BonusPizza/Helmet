@@ -119,9 +119,6 @@ void loop() {
 
 // open the visor and shut off eye lights
 void openVisor() {
-  leftServo.attach(leftServoPin, 500, 2400);
-  rightServo.attach(rightServoPin, 500, 2400);
-
   shutEyesOff();
 
   leftServo.write(leftServoOpen);
@@ -142,10 +139,6 @@ void closeVisor() {
   //TODO: FIND perfekt timing
 
   turnEyesOn();
-
-  leftServo.detach();
-  rightServo.detach();
-
   print();
 }
 
