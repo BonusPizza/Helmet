@@ -39,7 +39,7 @@ int blinksLeft = 0; // add 1 Blink == blinksleft += 2;
 // Initialize Helmet
 void setup() {
 
-  delay(500);
+  delay(400);
   
   Serial.begin(115200);
 
@@ -55,6 +55,8 @@ void setup() {
 
   // Helmet boots open so eyelights are off
   shutEyesOff();
+  digitalWrite(statusLed, HIGH);
+  delay(100);
   digitalWrite(statusLed, LOW);
 
   // Allow allocation of all timers
