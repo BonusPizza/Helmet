@@ -85,13 +85,13 @@ void loop() {
   // Check if button is pressed and spamm protection is off
   // otherwise reduce spamm protection (if on)
   if(visorSpamm == 0 && visorBS == LOW){
-      // open or close the visor based on its current state
-      if(visorOpen){
-        closeVisor();
-      } else if(!visorOpen){
-        openVisor();
-      }
     visorSpamm = 10;
+    // open or close the visor based on its current state
+    if(visorOpen){
+      closeVisor();
+    } else if(!visorOpen){
+      openVisor();
+    }
   } else {
     if(visorBS == LOW){
       exceptionHandler(2);
@@ -103,13 +103,13 @@ void loop() {
 
   // same thing but for the eyes
   if(eyeSpamm == 0 && eyeBS == LOW){
+    eyeSpamm = 5;
     // Toggle LED Eyes based on their current state
-      if(eyesOn){
-        shutEyesOff();
-      } else if(!eyesOn){
-        turnEyesOn();
-      }
-      eyeSpamm = 5;
+    if(eyesOn){
+      shutEyesOff();
+    } else if(!eyesOn){
+      turnEyesOn();
+    } 
   } else {
     if(eyeBS == LOW){
       exceptionHandler(3);
