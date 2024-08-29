@@ -10,6 +10,7 @@
 #define eyeButton 15
 #define leftEye 25
 #define rightEye 26
+#define statusLed 27
 
 #define leftServoPin 19 // left from the front
 #define rightServoPin 18 // right from the front
@@ -47,9 +48,11 @@ void setup() {
   // Leds
   pinMode(leftEye, OUTPUT);
   pinMode(rightEye, OUTPUT);
+  pinMode(statusLed, OUTPUT);
 
   // Helmet boots open so eyelights are off
   shutEyesOff();
+  digitalWrite(statusLed, LOW);
 
   // Allow allocation of all timers
 	ESP32PWM::allocateTimer(0);
@@ -73,31 +76,33 @@ void setup() {
 // Run Helmet
 void loop() {
 
-  int visorState = digitalRead(visorButton);
-  int eyeState = digitalRead(eyeButton);
+  int visorBS = digitalRead(visorButton);
+  int eyeBS = digitalRead(eyeButton);
 
-  Serial.print(visorState);
-  Serial.println(eyeState);
+  Serial.print(visorBS);
+  Serial.println(eyeBS);
 
   // Check if button is pressed and spamm protection is off
   // otherwise reduce spamm protection (if on)
-  if(visorSpamm == 0 && visorState == LOW){
+  if(visorSpamm == 0 && visorBS == LOW){
       // open or close the visor based on its current state
       if(visorOpen){
         closeVisor();
       } else if(!visorOpen){
         openVisor();
       }
-    visorSpamm = 5;
-
-  } else { 
+    visorSpamm = 10;
+  } else {
+    if(visorBS == LOW){
+      exceptionHandler(2);
+    }
     if(visorSpamm > 0){
       visorSpamm--;
     }
   }
 
   // same thing but for the eyes
-  if(eyeSpamm == 0 && eyeState == LOW){
+  if(eyeSpamm == 0 && eyeBS == LOW){
     // Toggle LED Eyes based on their current state
       if(eyesOn){
         shutEyesOff();
@@ -106,12 +111,15 @@ void loop() {
       }
       eyeSpamm = 5;
   } else {
+    if(eyeBS == LOW){
+      exceptionHandler(3);
+    }
     if(eyeSpamm > 0){
       eyeSpamm--;
     }
   }
 
-  delay(200);
+  delay(100);
 }
 
 
@@ -155,8 +163,8 @@ void turnEyesOn(){
 
     eyesOn = true;
   } else {
-    Serial.println("Visor is open!");
-  }// TODO Build else for user understanding
+    exceptionHandler(1);
+  }
 }
 
 void shutEyesOff(){
@@ -168,6 +176,39 @@ void shutEyesOff(){
 
 void setBrightness(int newBrightness){
   brightness = newBrightness;
+}
+
+// function to make the user understand what is going wrong
+void exceptionHandler(int errorCode){
+  switch (errorCode){
+  case 1:
+    Serial.println("The visor is open!");
+    // 2 short blinks on statusLed
+    digitalWrite(statusLed, HIGH);
+    delay(100);
+    digitalWrite(statusLed, LOW);
+    delay(150);
+    digitalWrite(statusLed, HIGH);
+    delay(100);
+    digitalWrite(statusLed, LOW);
+    break;
+  case 2:
+    Serial.println("Visor Spamm Protection is on!");
+    // 1 short blink
+    digitalWrite(statusLed, HIGH);
+    delay(100);
+    digitalWrite(statusLed, LOW);
+    break;
+  case 3:
+    Serial.println("Eye Spamm Protection is on!");
+    // 1 long blink
+    digitalWrite(statusLed, HIGH);
+    delay(300);
+    digitalWrite(statusLed, LOW);
+    break;
+  default:
+    break;
+  }
 }
 
 void print(){

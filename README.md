@@ -15,5 +15,12 @@ The Helmet 3D prints are mostly ready. I'm currently working on developing a rel
 * DIY LED Lights (light blue)
 * Button(s)
 
+## Status LED
+| Errorcode | Status Led       | Meaning |
+|:----------|:----------------:|:--------------------------------------------------|
+| 1         | two short blinks | Leds cannot be switched on when the visor is open |
+| 2         | one short blink  | Spamm protection for the visor button is on       |
+| 3         | one long blink   | Spamm protection for the eye button is on         |
+
 ## Future
 Build a voice recognition for the helmet and add commands for certain functionalities, e.g. opening the visor, or controlling the eye LEDs.
