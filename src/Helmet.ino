@@ -12,6 +12,7 @@
 #define leftEye 25
 #define rightEye 26
 #define statusLed 27
+#define lightSensor 33
 
 #define leftServoPin 19 // left from the front
 #define rightServoPin 18 // right from the front
@@ -52,6 +53,8 @@ void setup() {
   pinMode(leftEye, OUTPUT);
   pinMode(rightEye, OUTPUT);
   pinMode(statusLed, OUTPUT);
+  // Sensor
+  pinMode(lightSensor, INPUT);
 
   // Helmet boots open so eyelights are off
   shutEyesOff();
@@ -83,9 +86,6 @@ void loop() {
 
   int visorBS = digitalRead(visorButton);
   int eyeBS = digitalRead(eyeButton);
-
-  Serial.print(visorBS);
-  Serial.println(eyeBS);
 
   // Check if button is pressed and spamm protection is off
   // otherwise reduce spamm protection (if on)
@@ -120,6 +120,10 @@ void loop() {
     if(eyeSpamm > 0){
       eyeSpamm--;
     }
+  }
+
+  if(eyesOn){
+    setBrightness(map(analogRead(lightSensor), 0, 4095, 0, 255));
   }
 
   if(blinksLeft > 0){
@@ -180,6 +184,10 @@ void shutEyesOff(){
 
 void setBrightness(int newBrightness){
   brightness = newBrightness;
+  if(eyesOn){
+    analogWrite(leftEye, brightness);
+    analogWrite(rightEye, brightness);
+  }
 }
 
 // function to make the user understand what is going wrong

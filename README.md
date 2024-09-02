@@ -13,6 +13,7 @@ The Helmet 3D prints are mostly ready. I'm currently working on developing a rel
 * 2 Step-Up-Converter (3,3V and 5V)
 * USB-C Charge Module
 * DIY LED Lights (light blue)
+* Photoresistor
 * Button(s)
 
 ## Status LED
