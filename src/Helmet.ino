@@ -163,6 +163,7 @@ void closeVisor() {
   print();
 }
 
+// turn eyes on
 void turnEyesOn(){
   // Only turn on Eyes if Visor is closed.
   if(!visorOpen){
@@ -175,6 +176,7 @@ void turnEyesOn(){
   }
 }
 
+// shut eyes off
 void shutEyesOff(){
   analogWrite(leftEye, LOW);
   analogWrite(rightEye, LOW);
@@ -182,6 +184,7 @@ void shutEyesOff(){
   eyesOn = false;
 }
 
+// set new brightness of led eyes
 void setBrightness(int newBrightness){
   brightness = newBrightness;
   if(eyesOn){
