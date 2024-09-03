@@ -4,6 +4,7 @@
 #include <WiFi.h>
 #include <ESP32Servo.h>
 #include <SPI.h>
+#include <VoiceRecognitionV3.h>
 
 
 #define visorButton 5
@@ -37,6 +38,9 @@ const long interval = 100;
 unsigned long prevMillis = 0;
 int blinksLeft = 0; // add 1 Blink == blinksleft += 2;
 
+// define voice recognition stuff
+VR jarvis(16,17);
+
 // Initialize Helmet
 void setup() {
 
@@ -44,6 +48,8 @@ void setup() {
   
   Serial.begin(115200);
 
+  // initialize Voice Recognition
+  jarvis.begin(9600);
 
   // initialize Pins
   // Button
