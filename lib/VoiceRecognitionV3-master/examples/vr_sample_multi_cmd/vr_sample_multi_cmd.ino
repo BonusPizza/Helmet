@@ -14,7 +14,7 @@
     2013/06/13    Initial version.
   */
   
-#include <SoftwareSerial.h>
+
 #include "VoiceRecognitionV3.h"
 
 /**        
