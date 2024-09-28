@@ -1,4 +1,5 @@
 // Edited by Frank Van Hooft 2022 specifically for ESP32 UART2
+// Edited by ETH to correct send_pkt: adding lines 1203, 1204 (send2.write(buf,len))
 
 /**
   ******************************************************************************
@@ -1199,6 +1200,8 @@ void VR :: send_pkt(uint8_t cmd, uint8_t *buf, uint8_t len)
 	Serial2.write(len+2);
     delay(TXDLY);
 	Serial2.write(cmd);
+    delay(TXDLY);
+	Serial2.write(buf, len);  // was missing in github file for ESP32
     delay(TXDLY);
 	Serial2.write(FRAME_END);
     delay(TXDLY);
