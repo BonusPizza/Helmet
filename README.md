@@ -20,6 +20,9 @@ The Helmet 3D prints are mostly ready. I'm currently working on developing a rel
 | Errorcode | Status Led       | Meaning |
 |:----------|:----------------:|:--------------------------------------------------|
 | 1         | two short blinks | Leds cannot be switched on when the visor is open |
+| 2 | wip | The visor is already closed |
+| 3 | wip | The eyes are already on |
+| 4 | wip | The eyes are already off |
 
 ## Future
 Build a voice recognition for the helmet and add commands for certain functionalities, e.g. opening the visor, or controlling the eye LEDs.
