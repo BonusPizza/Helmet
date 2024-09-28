@@ -41,6 +41,7 @@ unsigned long lightMillis = 0;
 #define leftEye 25
 #define rightEye 26
 #define statusLed 27
+#define boardLed 2
 #define lightSensor 33
 
 #define leftServoPin 19 // left from the front
@@ -85,6 +86,7 @@ void setup() {
   pinMode(leftEye, OUTPUT);
   pinMode(rightEye, OUTPUT);
   pinMode(statusLed, OUTPUT);
+  pinMode(boardLed, OUTPUT);
   // Sensor
   pinMode(lightSensor, INPUT);
 
@@ -143,6 +145,7 @@ void loop() {
       switch(buf[1]){
         case wakeword:
           AWAKE = true;
+          digitalWrite(boardLed, HIGH);
           jarvis.clear();
           jarvis.load(uint8_t visor);
           jarvis.load(uint8_t light);
@@ -170,6 +173,7 @@ void loop() {
             jarvis.load(uint8_t wakeword);
             jarvis.load(uint8_t stop);
             VISOR = false;
+            digitalWrite(boardLed, LOW);
           }
           break;
         case zu:
@@ -183,6 +187,7 @@ void loop() {
             jarvis.load(uint8_t wakeword);
             jarvis.load(uint8_t stop);
             VISOR = false;
+            digitalWrite(boardLed, LOW);
           }
           break;
         case light:
@@ -206,6 +211,7 @@ void loop() {
             jarvis.load(uint8_t wakeword);
             jarvis.load(uint8_t stop);
             LIGHT = false;
+            digitalWrite(boardLed, LOW);
           }
           break;
         case aus:
@@ -219,6 +225,7 @@ void loop() {
             jarvis.load(uint8_t wakeword);
             jarvis.load(uint8_t stop);
             LIGHT = false;
+            digitalWrite(boardLed, LOW);
           }
           break;
         case toggleSensor:
@@ -228,6 +235,7 @@ void loop() {
             jarvis.load(uint8_t wakeword);
             jarvis.load(uint8_t stop);
             AWAKE = false;
+            digitalWrite(boardLed, LOW);
           }
           break;
         case stop:
@@ -237,6 +245,7 @@ void loop() {
           AWAKE = false;
           VISOR = false;
           LIGHT = false;
+          digitalWrite(boardLed, LOW);
           break;
         default:
           break;
