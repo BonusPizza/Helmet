@@ -10,11 +10,13 @@ The Helmet 3D prints are mostly ready. I'm currently working on developing a rel
 * ESP32-Wroom-D32 DevKit
 * 2 MG90s Servos
 * 3,7 Lipo Battery
-* 2 Step-Up-Converter (3,3V and 5V)
+* 1 Step-Up-Converter (5V)
+* 1 Step-Down-Converter (3,3V)
 * USB-C Charge Module
 * DIY LED Lights (light blue)
 * Photoresistor
 * Button(s)
+* Elechouse Voice Recognition Module V3
 
 ## Status LED
 | Errorcode | Status Led       | Meaning |
