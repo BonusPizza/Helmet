@@ -21,12 +21,12 @@
    2   ------->     TX
    3   ------->     RX
 */
-VR myVR(2,3);    // 2:RX 3:TX, you can choose your favourite pins.
+VR myVR(17,16);    // 2:RX 3:TX, you can choose your favourite pins.
 
 uint8_t records[7]; // save record
 uint8_t buf[64];
 
-int led = 13;
+int led = 2;
 
 #define onRecord    (0)
 #define offRecord   (1) 
