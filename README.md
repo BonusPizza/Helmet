@@ -1,10 +1,26 @@
-# Helmet
+# Helmet (WIP)
 Esp32 project to recreate the functionality of an Iron Man helmet.
 
 ## Current Progress
-![current_progress](https://github.com/user-attachments/assets/1faaa313-dcce-40db-9d44-5c49e7fb2d33)
+![20241029_122954](https://github.com/user-attachments/assets/0a24c8c9-64a1-4181-9043-9c010b2f0c8d)
 
-The Helmet 3D prints are mostly ready. I'm currently working on developing a reliable power source and preparing everything to create my own soldered circuit board for all the hardware. 
+The Helmet 3D prints are ready and the Servos and LED-Lights are build in. I’m currently waiting for a friend who is designing a custom circuit board using my schematic.
+
+![20241029_123108](https://github.com/user-attachments/assets/9185d658-3215-4aa7-9696-3782136e8f1a)
+
+## Voice Recognition
+I've use the Elechouse Voice Recognition Module to train a few voice commands and check if they are being called.
+|Voice Command | Function |
+|:-------------|:--------:|
+|Jarvis| Wake word |
+|visier|Initiate visor commands|
+|auf|Open visor|
+|zu|Close cisor|
+|licht|Initiate light commands|
+|an| Tun on lights|
+|aus| Turn of lights|
+|toggle Sensor| Turn the brightness sensor on or off based on whether it’s wanted|
+|stop|Cancel voice input|
 
 ## Parts
 * ESP32-Wroom-D32 DevKit
@@ -25,6 +41,3 @@ The Helmet 3D prints are mostly ready. I'm currently working on developing a rel
 | 2 | wip | The visor is already closed |
 | 3 | wip | The eyes are already on |
 | 4 | wip | The eyes are already off |
-
-## Future
-Build a voice recognition for the helmet and add commands for certain functionalities, e.g. opening the visor, or controlling the eye LEDs.
